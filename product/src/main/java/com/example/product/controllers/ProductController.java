@@ -2,7 +2,11 @@ package com.example.product.controllers;
 
 import com.example.product.dtos.ProductRequestDto;
 import com.example.product.models.Product;
+import com.example.product.services.IProductService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.awt.color.ProfileDataException;
 import java.util.ArrayList;
@@ -10,6 +14,9 @@ import java.util.List;
 
 @RestController
 public class ProductController {
+
+    @Autowired
+    private IProductService productService;
     @GetMapping("/products")
     public List<Product> getAllProducts(){
         return new ArrayList<>();
