@@ -1,12 +1,13 @@
 package com.example.product.controllers;
 
 import com.example.product.dtos.ProductRequestDto;
+import com.example.product.dtos.ProductResponseDto;
 import com.example.product.models.Product;
 import com.example.product.services.IProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.client.RestTemplate;
 
 import java.awt.color.ProfileDataException;
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ public class ProductController {
 
     @Autowired
     private IProductService productService;
+    
+    
     @GetMapping("/products")
     public List<Product> getAllProducts(){
         return new ArrayList<>();
@@ -25,8 +28,10 @@ public class ProductController {
     //get product with id
     @GetMapping("/products/{id}")
     public Product getSingleProduct(@PathVariable("id") Long id){
-        return new Product();
-
+    	//I should pass this id to fakeStoreAPI and get the details of product
+    	//"https://fakestoreapi.com/products/1" 
+    	
+    	return productService.getSingleProduct(id);
     }
     //add product
     @PostMapping("/products")

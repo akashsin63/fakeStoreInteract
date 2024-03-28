@@ -1,6 +1,7 @@
 package com.example.product.models;
 
-import jdk.jfr.Category;
+
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,5 +13,6 @@ public class Product {
     private String description;
     private int price;
     private String image;
-    private Category category;
+    private com.example.product.models.Category category; 
+	
 }
