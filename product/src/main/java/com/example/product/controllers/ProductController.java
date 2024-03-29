@@ -22,7 +22,18 @@ public class ProductController {
     
     @GetMapping("/products")
     public List<Product> getAllProducts(){
-        return new ArrayList<>();
+         //The controller's responsibility is to retrun the product with name A 
+    	List<Product> allProducts = productService.getAllProduct();
+    	ArrayList<Product> filteredProducts = new ArrayList<>();
+    	for(Product product : allProducts) {
+    		if(product.getName().startsWith("a"))
+            {
+                filteredProducts.add(product);
+            }
+    	}
+ 
+    	return filteredProducts;
+    	
     }
 
     //get product with id
