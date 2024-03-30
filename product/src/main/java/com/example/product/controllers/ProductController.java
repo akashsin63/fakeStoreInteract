@@ -23,7 +23,7 @@ public class ProductController {
     @GetMapping("/products")
     public List<Product> getAllProducts(){
          //The controller's responsibility is to retrun the product with name A 
-    	List<Product> allProducts = productService.getAllProduct();
+    	List<Product> allProducts = productService.getAllProducts();
     	ArrayList<Product> filteredProducts = new ArrayList<>();
     	for(Product product : allProducts) {
     		if(product.getName().startsWith("a"))
@@ -31,8 +31,14 @@ public class ProductController {
                 filteredProducts.add(product);
             }
     	}
- 
-    	return filteredProducts;
+    	
+    	if(filteredProducts.isEmpty()) {
+            // If no products with names starting with "a" are found,
+            // return all products instead
+            return allProducts;
+        } else {
+            return filteredProducts;
+        }
     	
     }
 
@@ -54,7 +60,7 @@ public class ProductController {
     public Product updateProduct(@PathVariable("id") Long id,
                                  @RequestBody ProductRequestDto productRequestDto){
 
-        return new Product();
+        return productService.updateProduct(id,productRequestDto);
     }
 
     //delete the product
