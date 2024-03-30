@@ -53,7 +53,7 @@ public class ProductController {
     //add product
     @PostMapping("/products")
     public Product addProduct(@RequestBody ProductRequestDto productRequestDto){
-        return new Product();
+        return productService.addProduct(productRequestDto);
     }
     //update the existing product
     @PutMapping("/products/{id}")
@@ -66,6 +66,6 @@ public class ProductController {
     //delete the product
     @DeleteMapping("/products/{id}")
     public boolean deleteProduct(@PathVariable("id") Long id){
-        return true;
+        return productService.deleteProduct(id);
     }
 }

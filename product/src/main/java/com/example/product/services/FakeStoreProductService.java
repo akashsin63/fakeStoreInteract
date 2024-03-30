@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpMessageConverterExtractor;
 import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.RestTemplate;
@@ -70,7 +72,39 @@ public class FakeStoreProductService implements IProductService{
     	 ProductResponseDto responseDto = restTemplate.execute("https://fakestoreapi.com/products/" + id,
                  HttpMethod.PUT, requestCallback, responseExtractor);
     	 return getProductFromResponseDto(responseDto);
+  
     	
+    }
+    
+    public Product addProduct(ProductRequestDto productReqeustDto) {
+    	ResponseEntity<ProductResponseDto> responseEntity =  restTemplate
+    			.postForEntity("https://fakestoreapi.com/products", productReqeustDto, ProductResponseDto.class);
+    
+    	// Check if the request was successful (HTTP status 2xx)
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            // Convert the response DTO to your domain model (Product)
+            ProductResponseDto productResponseDto = responseEntity.getBody();
+            return getProductFromResponseDto(productResponseDto); // Assuming you have a method to convert DTO to domain object
+        } else {
+            // Handle error scenarios, e.g., throw an exception or return null
+            // You might want to add more detailed error handling here
+            throw new RuntimeException("Failed to add product. HTTP status: " + responseEntity.getStatusCodeValue());
+        }
+    }
+    
+    
+    public boolean deleteProduct(Long id) {
+    	 
+    	String deleteUrl = "https://fakestoreapi.com/products"+id ;
+    	
+    	try {
+    		restTemplate.delete(deleteUrl);
+    		return true;
+    	}
+    	catch (HttpClientErrorException.NotFound e) {
+            // If the product with the given ID is not found
+            return false;
+        }
     	
     }
 
