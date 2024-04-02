@@ -9,7 +9,7 @@ import com.example.product.models.Product;
 
 @Service
 public interface IProductService {
-    public Product getSingleProduct(Long id);
+    public Product getSingleProduct(Long id) throws InvalidProductIdException;
     public List<Product> getAllProducts();
     public Product updateProduct(Long id ,ProductRequestDto productRequestDto);
     public Product addProduct(ProductRequestDto productRequestDto);

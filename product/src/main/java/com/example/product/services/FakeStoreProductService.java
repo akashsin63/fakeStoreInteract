@@ -38,15 +38,20 @@ public class FakeStoreProductService implements IProductService{
         return product;
 	}
 
-    @Override
-    public Product getSingleProduct(Long id) {
-    	
-    	
-    	ProductResponseDto response = restTemplate
-    	.getForObject("https://fakestoreapi.com/products/"+id, ProductResponseDto.class);
-    	
-    	return getProductFromResponseDto(response);
-    }
+	@Override
+	 public Product getSingleProduct(Long id) throws InvalidProductIdException {
+
+	        if(id>20){
+	            throw new InvalidProductIdException();
+	        }
+
+	        // I should pass this 'id' to fakestore and get the details of this product.
+	        // "https://fakestoreapi.com/products/1"
+	        ProductResponseDto response = restTemplate.getForObject("https://fakestoreapi.com/products/" + id,
+	                ProductResponseDto.class);
+
+	        return getProductFromResponseDto(response);
+	    }
     
     @Override
 	public List<Product> getAllProducts() {

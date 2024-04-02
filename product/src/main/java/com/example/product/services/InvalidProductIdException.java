@@ -1,5 +1,4 @@
 package com.example.product.services;
 
-public class InvalidProductIdException {
-
+public class InvalidProductIdException extends Throwable {
 }
