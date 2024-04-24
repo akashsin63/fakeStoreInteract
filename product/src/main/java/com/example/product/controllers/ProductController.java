@@ -58,10 +58,7 @@ public class ProductController {
         response = new ResponseEntity<>(productWrapper, HttpStatus.OK);
         return response;
     }
-    @ExceptionHandler(InvalidProductIdException.class)
-    public ResponseEntity<ErrorResponseDto> handleInvalidProduct(){
-    	return new ResponseEntity<>(new ErrorResponseDto("Invalid product"), HttpStatus.NOT_FOUND);
-    }
+   
     
     //add product
     @PostMapping("/products")
