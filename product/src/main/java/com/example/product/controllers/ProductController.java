@@ -9,6 +9,7 @@ import com.example.product.services.IProductService;
 import com.example.product.services.InvalidProductIdException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +21,13 @@ import java.util.List;
 
 @RestController
 public class ProductController {
-
-    @Autowired
+    
     private IProductService productService;
+    
+    @Autowired
+    public ProductController(@Qualifier("selfProduct")IProductService productService) {
+    	this.productService = productService;
+    }
     
     
     @GetMapping("/products")

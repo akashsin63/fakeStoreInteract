@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import com.example.product.models.Category;
 import com.example.product.models.Product;
 
 @Service
+@Primary
 public class FakeStoreProductService implements IProductService{
 	
 	@Autowired
@@ -42,7 +44,7 @@ public class FakeStoreProductService implements IProductService{
 	 public Product getSingleProduct(Long id) throws InvalidProductIdException {
 
 	        if(id>20){
-	            throw new InvalidProductIdException();
+	            throw new InvalidProductIdException("");
 	        }
 
 	        // I should pass this 'id' to fakestore and get the details of this product.
