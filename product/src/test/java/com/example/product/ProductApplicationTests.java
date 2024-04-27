@@ -1,5 +1,7 @@
 package com.example.product;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,13 +15,18 @@ class ProductApplicationTests {
 	
 	@Autowired
 	ProductRepository productRepository;
+	
 	@Test
 	void contextLoads() {
 	}
 	
 	public void getSomeData() {
-		Product product = productRepository.findByName("MacBook");
+		Optional<Product> productOptional = productRepository.findByName("MacBook");
 		
-		System.out.println(product.getName() + " " + product.getPrice());
+		if(productOptional.isEmpty()) {
+			return;
+		}
+		Product product = productOptional.get();
+		System.out.println(product.getId() + " " + product.getPrice());
 	}
 }
