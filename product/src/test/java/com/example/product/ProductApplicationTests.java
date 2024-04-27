@@ -20,6 +20,7 @@ class ProductApplicationTests {
 	void contextLoads() {
 	}
 	
+	@Test
 	public void getSomeData() {
 		Optional<Product> productOptional = productRepository.findByName("MacBook");
 		
@@ -29,4 +30,11 @@ class ProductApplicationTests {
 		Product product = productOptional.get();
 		System.out.println(product.getId() + " " + product.getPrice());
 	}
+	
+	@Test
+	public void deleteProduct() {
+		productRepository.deleteById(2L);
+	}
+	
+	
 }
