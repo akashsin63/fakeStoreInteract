@@ -3,12 +3,15 @@ package com.example.product.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import com.example.product.dtos.ProductRequestDto;
+import com.example.product.models.Category;
 import com.example.product.models.Product;
+import com.example.product.repositories.CategoryRepository;
 import com.example.product.repositories.ProductRepository;
 
 @Service
@@ -16,10 +19,16 @@ import com.example.product.repositories.ProductRepository;
 @Qualifier("selfProduct")
 public class SelfProductService implements IProductService { 
 	
-	ProductRepository productRepository;
 	
-	public SelfProductService(ProductRepository productRepository) {
+	private ProductRepository productRepository;
+	private CategoryRepository categoryRepository;
+	
+	
+	
+	@Autowired
+	public SelfProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
 		this.productRepository= productRepository;
+		this.categoryRepository = categoryRepository;
 	}
 	
 
@@ -49,9 +58,21 @@ public class SelfProductService implements IProductService {
 	}
 
 	@Override
-	public Product addProduct(ProductRequestDto productRequestDto) {
+	public Product addProduct(Product product) {
+		
 		// TODO Auto-generated method stub
-		return null;
+		Optional<Category> categoryOptional = categoryRepository.findByName(product.getCategory().getName());
+		if(categoryOptional.isEmpty()) {
+			Category categoryToSave = new Category();
+			categoryToSave.setName(product.getCategory().getName());
+			Category savedCategory = categoryRepository.save(categoryToSave);
+			product.setCategory(savedCategory);
+		}else{
+			product.setCategory(categoryOptional.get());
+		}
+		Product savedProduct = productRepository.save(product);
+		
+		return savedProduct;
 	}
 
 	@Override

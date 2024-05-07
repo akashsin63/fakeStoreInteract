@@ -15,8 +15,9 @@ import com.example.product.models.Product;
 public interface ProductRepository extends JpaRepository<Product, Long>{
 	
 	
-	public Optional<Product> findByName(String name);
+	//public Optional<Product> findByName(String name);
 	public Optional<Product> findById(int id);
-	public Optional<Product> findByNameAndDescriptionAndPriceGreaterThan(String title , String description,Double price);
-
+	//public Optional<Product> findByNameAndDescriptionAndPriceGreaterThan(String title , String description,Double price);
+	
+	public Product save(Product product);
 }

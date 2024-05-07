@@ -4,6 +4,7 @@ import com.example.product.dtos.ErrorResponseDto;
 import com.example.product.dtos.ProductRequestDto;
 import com.example.product.dtos.ProductResponseDto;
 import com.example.product.dtos.ProductWrapper;
+import com.example.product.models.Category;
 import com.example.product.models.Product;
 import com.example.product.services.IProductService;
 import com.example.product.services.InvalidProductIdException;
@@ -68,7 +69,16 @@ public class ProductController {
     //add product
     @PostMapping("/products")
     public Product addProduct(@RequestBody ProductRequestDto productRequestDto){
-        return productService.addProduct(productRequestDto);
+    	Product product = new Product();
+    	product.setName(productRequestDto.getTitle());
+    	product.setDescription(productRequestDto.getDescription());
+    	product.setPrice(productRequestDto.getPrice());
+    	product.setImage(productRequestDto.getImage());
+    	product.setCategory(new Category());
+    	product.getCategory().setName(productRequestDto.getCategory());
+    	
+    	Product saveProduct = productService.addProduct(product);
+        return saveProduct;
     }
     //update the existing product
     @PutMapping("/products/{id}")
