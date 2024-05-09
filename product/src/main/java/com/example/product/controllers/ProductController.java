@@ -4,6 +4,7 @@ import com.example.product.dtos.ErrorResponseDto;
 import com.example.product.dtos.ProductRequestDto;
 import com.example.product.dtos.ProductResponseDto;
 import com.example.product.dtos.ProductWrapper;
+import com.example.product.execeptions.ProductDoesNotExistExeception;
 import com.example.product.models.Category;
 import com.example.product.models.Product;
 import com.example.product.services.IProductService;
@@ -83,9 +84,18 @@ public class ProductController {
     //update the existing product
     @PutMapping("/products/{id}")
     public Product updateProduct(@PathVariable("id") Long id,
-                                 @RequestBody ProductRequestDto productRequestDto){
+                                 @RequestBody ProductRequestDto productRequestDto) throws ProductDoesNotExistExeception{
+    	Product product = new Product();
+    	product.setId(id);
+    	product.setName(productRequestDto.getTitle());
+    	product.setDescription(productRequestDto.getDescription());
+    	product.setPrice(productRequestDto.getPrice());
+    	product.setImage(productRequestDto.getImage());
+    	product.setCategory(new Category());
+    	product.getCategory().setName(productRequestDto.getCategory());
+    	
 
-        return productService.updateProduct(id,productRequestDto);
+        return productService.updateProduct(id,product);
     }
 
     //delete the product

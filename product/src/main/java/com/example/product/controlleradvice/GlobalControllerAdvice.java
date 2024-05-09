@@ -22,4 +22,9 @@ public class GlobalControllerAdvice {
     public ResponseEntity<ErrorResponseDto> handleInvlaidProduct() {
         return new ResponseEntity<>(new ErrorResponseDto("Invalid product from global"), HttpStatus.NOT_FOUND);
     }
+    
+//    @ExceptionHandler(ProductDoesNotExistExeception.class)
+//    public ResponseEntity<ErrorResponseDto> ProductDoesNotExistExeception() {
+//    	  return new ResponseEntity<>(new ErrorResponseDto("Invalid product from global"), HttpStatus.NOT_FOUND);
+//    }
 }

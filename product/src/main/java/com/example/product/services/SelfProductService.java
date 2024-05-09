@@ -72,8 +72,29 @@ public class SelfProductService implements IProductService {
 				product.getDescription() != null ?
 						product.getDescription() : exsitingProduct.getDescription()
 				);
-		return null;
+		updateProduct.setImage(
+				product.getImage() != null ?
+						product.getImage() : exsitingProduct.getImage()
+				);
+		updateProduct.setPrice(
+				product.getPrice() != 0 ?
+						product.getPrice() : exsitingProduct.getPrice()
+				);
+		
+		Optional<Category> categoryOptional = categoryRepository.findByName(product.getCategory().getName());
+		if(categoryOptional.isEmpty()) {
+			Category categoryToSave = new Category();
+			categoryToSave.setName(product.getCategory().getName());
+			Category savedCategory = categoryRepository.save(categoryToSave);
+			updateProduct.setCategory(savedCategory);
+		}else{
+			updateProduct.setCategory(categoryOptional.get());
+		}
+		
+		Product saveUpdatedProduct = productRepository.save(updateProduct);
+		return saveUpdatedProduct;
 	}
+	
 
 	@Override
 	public Product addProduct(Product product) {

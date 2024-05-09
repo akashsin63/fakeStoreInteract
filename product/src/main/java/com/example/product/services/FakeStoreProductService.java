@@ -121,5 +121,11 @@ public class FakeStoreProductService implements IProductService{
 		return null;
 	}
 
+	@Override
+	public Product updateProduct(Long id, Product product) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }
