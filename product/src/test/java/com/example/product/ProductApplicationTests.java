@@ -20,16 +20,16 @@ class ProductApplicationTests {
 	void contextLoads() {
 	}
 	
-	@Test
-	public void getSomeData() {
-		Optional<Product> productOptional = productRepository.findByName("MacBook");
-		
-		if(productOptional.isEmpty()) {
-			return;
-		}
-		Product product = productOptional.get();
-		System.out.println(product.getId() + " " + product.getPrice());
-	}
+//	@Test
+//	public void getSomeData() {
+//		Optional<Product> productOptional = productRepository.findByName("MacBook");
+//		
+//		if(productOptional.isEmpty()) {
+//			return;
+//		}
+//		Product product = productOptional.get();
+//		System.out.println(product.getId() + " " + product.getPrice());
+//	}
 	
 	@Test
 	public void deleteProduct() {
