@@ -14,5 +14,5 @@ public interface IProductService {
     public List<Product> getAllProducts();
     Product updateProduct(Long id, Product product) throws ProductDoesNotExistExeception;
     public Product addProduct(Product product);
-    public boolean deleteProduct(Long id);
+    public boolean deleteProduct(Long id) throws ProductDoesNotExistExeception;
 }

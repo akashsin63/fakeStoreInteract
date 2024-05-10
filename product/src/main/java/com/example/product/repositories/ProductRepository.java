@@ -20,4 +20,5 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
 	//public Optional<Product> findByNameAndDescriptionAndPriceGreaterThan(String title , String description,Double price);
 	
 	public Product save(Product product);
+	//public Optional<Product> deleteProductById(Long id);
 }

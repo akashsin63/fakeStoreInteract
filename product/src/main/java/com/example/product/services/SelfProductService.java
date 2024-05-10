@@ -115,9 +115,18 @@ public class SelfProductService implements IProductService {
 	}
 
 	@Override
-	public boolean deleteProduct(Long id) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deleteProduct(Long id) throws ProductDoesNotExistExeception {
+	    // Find the product by id
+	    Optional<Product> productOptional = productRepository.findById(id);
+	    
+	    if (productOptional.isPresent()) {
+	        // If the product exists, delete it
+	        productRepository.deleteById(id);
+	        return true;
+	    } else {
+	        // If the product does not exist, throw an exception
+	        throw new ProductDoesNotExistExeception("Product with id: " + id + " does not exist");
+	    }
 	}
 
 }

@@ -100,7 +100,7 @@ public class ProductController {
 
     //delete the product
     @DeleteMapping("/products/{id}")
-    public boolean deleteProduct(@PathVariable("id") Long id){
+    public boolean deleteProduct(@PathVariable("id") Long id) throws ProductDoesNotExistExeception{
         return productService.deleteProduct(id);
     }
 }
